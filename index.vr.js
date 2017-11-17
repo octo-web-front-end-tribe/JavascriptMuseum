@@ -1,63 +1,61 @@
-import React from 'react';
+import React from "react";
 import {
-	AppRegistry,
-	Animated,
-	asset,
-	Box,
-	Image,
-	Pano,
-	Sphere,
-	SpotLight,
-	View,
-	VrButton,
-} from 'react-vr';
+  AppRegistry,
+  asset,
+  Box,
+  Image,
+  Pano,
+  Sphere,
+  SpotLight,
+  View
+} from "react-vr";
 
 import javaScriptImage from './static_assets/JavaScript.png';
 import texture from './static_assets/texture.png';
+import makeClickable from "./enhancers/makeClickable";
+
+const ClickableJavascriptImage = makeClickable(Image);
+const ClickableBox = makeClickable(Box);
+const ClickableSphere = makeClickable(Sphere);
 
 export default class JavascriptMuseum extends React.Component {
-	render() {
-		return (
-			<View>
-				<SpotLight intensity={1} />
-				<Pano source={ asset('chess-world.jpg') }/>
-				<VrButton
-					onClick={() => console.log('click')}
-				>
-					<Image
-						source={ javaScriptImage }
-						style={{
-							width: 785 / 100 / 2, height: 340 / 100 / 2,
-							layoutOrigin: [0.5, 0.5],
-							transform: [{ translate: [0, 0, -3.6] }],
-						}}
-					/>
-				</VrButton>
-				<Box
-					dimWidth={1}
-					dimDepth={1}
-					dimHeight={1}
-					lit
-					style={{
-						layoutOrigin: [0.5, 0.5],
-						transform: [{ translate: [2.85, -0.2, 6] }],
-					}}
-					texture={texture}
-				/>
-				<Sphere
-					radius={0.5}
-					widthSegments={20}
-					heightSegments={12}
-					lit
-					style={{
-						layoutOrigin: [0.5, 0.5],
-						transform: [{ translate: [0.9, -0.2, 6] }],
-					}}
-					texture={texture}
-				/>
-			</View>
-		);
-	}
-};
+  // todo make elements draggable
+  render() {
+    return (
+      <View>
+        <SpotLight intensity={1} />
+        <Pano source={asset("chess-world.jpg")} />
+        <ClickableJavascriptImage
+          source={javaScriptImage}
+          style={{
+            width: 785 / 100 / 2,
+            height: 340 / 100 / 2,
+            layoutOrigin: [0.5, 0.5],
+            transform: [{ translate: [0, 0, -3.6] }]
+          }}
+        />
+        <ClickableBox
+          dimWidth={1.2}
+          dimDepth={1.2}
+          dimHeight={1.2}
+          lit
+          style={{
+            transform: [{ translate: [7, 0.5, 15] }]
+          }}
+          texture={texture}
+        />
+        <ClickableSphere
+          radius={1}
+          widthSegments={20}
+          heightSegments={12}
+          style={{
+            transform: [{ translate: [2.5, 0.5, 18] }]
+          }}
+          texture={texture}
+        />
+      </View>
+    );
+  }
+}
 
-AppRegistry.registerComponent('JavascriptMuseum', () => JavascriptMuseum);
+AppRegistry.registerComponent("JavascriptMuseum", () => JavascriptMuseum);
