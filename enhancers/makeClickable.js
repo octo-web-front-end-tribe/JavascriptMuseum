@@ -25,9 +25,8 @@ export default function MakeClickable(Component) {
       return (
         <Animated.View {...animationProps}>
           <VrButton
-            onClick={() => {
-              this.state.animation.start();
-            }}
+            onClick={this.state.animation.start}
+						ignoreLongClick
           >
             <Component {...this.props} />
           </VrButton>
